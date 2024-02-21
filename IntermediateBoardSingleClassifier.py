@@ -38,7 +38,7 @@ for train_index, test_index in cv.split(X, y):
     svm.fit(X_train, y_train)
     knn.fit(X_train, y_train)
     mlp.fit(X_train, y_train)
-    
+
     # Make predictions
     y_pred_svm = svm.predict(X_test)
     y_pred_knn = knn.predict(X_test)
