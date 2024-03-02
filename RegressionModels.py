@@ -26,22 +26,25 @@ print("\nFor final board optimal moves regression")
 print("----------------------------------------")
 
 print("\nFor KNN Regression \n--------------------------------")
-knn_scores = cross_val_score(knn, X, y, cv=kf)
-print("\nAccuracy across folds: ")
-print(knn_scores)
-print(f"\nAverage Accuracy: {np.mean(knn_scores):.4f}")
+knn_scores = cross_val_score(knn, X, y, cv=kf, scoring='neg_mean_squared_error')
+rmse_scores = np.sqrt(-knn_scores)
+print("\nRoot mean squared error across folds: ")
+print(rmse_scores)
+print(f"\nAverage root mean squared error: {np.mean(rmse_scores):.4f}")
 
 print("\nFor Linear Regression \n--------------------------------")
-lin_scores = cross_val_score(lin, X, y, cv=kf)
-print("\nR^2 across folds: ")
-print(lin_scores)
-print(f"\nAverage R^2: {np.mean(lin_scores):.4f}")
+lin_scores = cross_val_score(lin, X, y, cv=kf, scoring='neg_mean_squared_error')
+rmse_scores = np.sqrt(-lin_scores)
+print("\nRoot mean squared error across folds: ")
+print(rmse_scores)
+print(f"\nAverage root mean squared error: {np.mean(rmse_scores):.4f}")
 
 print("\nFor Multi Layer Perceptron Regression \n--------------------------------")
-mlp_scores = cross_val_score(mlp, X, y, cv=kf)
-print("\nAccuracy across folds: ")
-print(mlp_scores)
-print(f"\nAverage Accuracy: {np.mean(mlp_scores):.4f}")
+mlp_scores = cross_val_score(mlp, X, y, cv=kf, scoring='neg_mean_squared_error')
+rmse_scores = np.sqrt(-mlp_scores)
+print("\nRoot mean squared error across folds: ")
+print(rmse_scores)
+print(f"\nAverage root mean squared error: {np.mean(rmse_scores):.4f}")
 
 
 #-----------------------------------------------------------------------#
@@ -55,22 +58,25 @@ np.random.shuffle(A)
 X = A[:len(A)//10, :9]
 y = A[:len(A)//10, 9:]
 print("\nFor KNN Regression \n--------------------------------")
-knn_scores = cross_val_score(knn, X, y, cv=kf)
-print("\nAccuracy across folds: ")
-print(knn_scores)
-print(f"\nAverage Accuracy: {np.mean(knn_scores):.4f}")
+knn_scores = cross_val_score(knn, X, y, cv=kf, scoring='neg_mean_squared_error')
+rmse_scores = np.sqrt(-knn_scores)
+print("\nRoot mean squared error across folds: ")
+print(rmse_scores)
+print(f"\nAverage root mean squared error: {np.mean(rmse_scores):.4f}")
 
 print("\nFor Linear Regression \n--------------------------------")
-lin_scores = cross_val_score(lin, X, y, cv=kf)
-print("\nR^2 across folds: ")
-print(lin_scores)
-print(f"\nAverage R^2: {np.mean(lin_scores):.4f}")
+lin_scores = cross_val_score(lin, X, y, cv=kf, scoring='neg_mean_squared_error')
+rmse_scores = np.sqrt(-lin_scores)
+print("\nRoot mean squared error across folds: ")
+print(rmse_scores)
+print(f"\nAverage root mean squared error: {np.mean(rmse_scores):.4f}")
 
 print("\nFor Multi Layer Perceptron Regression \n--------------------------------")
-mlp_scores = cross_val_score(mlp, X, y, cv=kf)
-print("\nAccuracy across folds: ")
-print(mlp_scores)
-print(f"\nAverage Accuracy: {np.mean(mlp_scores):.4f}")
+mlp_scores = cross_val_score(mlp, X, y, cv=kf, scoring='neg_mean_squared_error')
+rmse_scores = np.sqrt(-mlp_scores)
+print("\nRoot mean squared error across folds: ")
+print(rmse_scores)
+print(f"\nAverage root mean squared error: {np.mean(rmse_scores):.4f}")
 
 #-----------------------------------------------------------------------#
 #         Testing with Normal Equations for Linear Regression           #
@@ -96,6 +102,11 @@ def predict(X, theta):
     return np.ravel(res)
 
 def calcRSquared(y, y_pred):
+    diff = y_pred - y
+    squared_diff = diff ** 2
+    mse = np.mean(squared_diff)
+    rmse = np.sqrt(mse)
+    return rmse
     ss_res = np.sum((y - y_pred) ** 2)
     y_mean = np.mean(y)
     ss_tot = np.sum((y - y_mean) ** 2)
@@ -123,6 +134,6 @@ def crossVal(X, y):
 
 np.set_printoptions(precision=3)
 lnr_scores = crossVal(X,y)
-print("\nR^2 across folds: ")
+print("\nRoot mean squared error across folds: ")
 print(lnr_scores)
-print(f"\nAverage R^2: {np.mean(lnr_scores):.4f}")
+print(f"\nAverage root mean squared error: {np.mean(lnr_scores):.4f}")
