@@ -1,17 +1,21 @@
 import numpy as np
 import os
+import warnings
 from os.path import dirname, join
 from sklearn.metrics import confusion_matrix, accuracy_score
 from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import cross_val_score, StratifiedKFold
+from sklearn.exceptions import ConvergenceWarning
+
+warnings.filterwarnings('ignore', category=ConvergenceWarning, module='sklearn.neural_network')
 
 #-----------------------------------------------------------------------#
 #                   For the final board                                 #
 #-----------------------------------------------------------------------#
 
-print("For final board state classification")
+print("\nFor final board state classification")
 print("------------------------------------")
 
 current_dir = dirname(__file__)
@@ -62,24 +66,24 @@ for train_index, test_index in cv.split(X, y):
     acc_mlp.append(accuracy_score(y_test, y_pred_mlp))
 
 print("\nFor Support Vector Machine \n --------------------------------")
-for i, accuracy in enumerate(acc_svm, 1):
-    print(f"Accuracy for Fold {i}: {accuracy*100:.2f}%")
+# for i, accuracy in enumerate(acc_svm, 1):
+#     print(f"Accuracy for Fold {i}: {accuracy*100:.2f}%")
 overall_accuracy = np.trace(cm_svm) / np.sum(cm_svm)
 print(f"\nOverall Accuracy: {overall_accuracy*100:.2f}%")
 print(f"\nAggregate Confusion Matrix:\n{cm_svm}")
 
 
 print("\nFor K-Nearest Neighbors \n --------------------------------")
-for i, accuracy in enumerate(acc_knn, 1):
-    print(f"Accuracy for Fold {i}: {accuracy*100:.2f}%")
+# for i, accuracy in enumerate(acc_knn, 1):
+#     print(f"Accuracy for Fold {i}: {accuracy*100:.2f}%")
 overall_accuracy = np.trace(cm_knn) / np.sum(cm_knn)
 print(f"\nOverall Accuracy: {overall_accuracy*100:.2f}%")
 print(f"\nAggregate Confusion Matrix:\n{cm_knn}")
 
 
 print("\nFor Multi-Layer Perceptron \n --------------------------------")
-for i, accuracy in enumerate(acc_mlp, 1):
-    print(f"Accuracy for Fold {i}: {accuracy*100:.2f}%")
+# for i, accuracy in enumerate(acc_mlp, 1):
+#     print(f"Accuracy for Fold {i}: {accuracy*100:.2f}%")
 overall_accuracy = np.trace(cm_mlp) / np.sum(cm_mlp)
 print(f"\nOverall Accuracy: {overall_accuracy*100:.2f}%")
 print(f"\nAggregate Confusion Matrix:\n{cm_mlp}")
@@ -88,7 +92,7 @@ print(f"\nAggregate Confusion Matrix:\n{cm_mlp}")
 #-----------------------------------------------------------------------#
 #                   For the final board                                 #
 #-----------------------------------------------------------------------#
-print("For intermediate board optimal move classification")
+print("\nFor intermediate board optimal move classification")
 print("--------------------------------------------------")
 
 file_path = join(current_dir, "datasets/tictac_single.txt")
@@ -133,24 +137,24 @@ for train_index, test_index in cv.split(X, y):
     acc_mlp.append(accuracy_score(y_test, y_pred_mlp))
 
 print("\nFor Support Vector Machine \n --------------------------------")
-for i, accuracy in enumerate(acc_svm, 1):
-    print(f"Accuracy for Fold {i}: {accuracy*100:.2f}%")
+# for i, accuracy in enumerate(acc_svm, 1):
+#     print(f"Accuracy for Fold {i}: {accuracy*100:.2f}%")
 overall_accuracy = np.trace(cm_svm) / np.sum(cm_svm)
 print(f"\nOverall Accuracy: {overall_accuracy*100:.2f}%")
 print(f"\nAggregate Confusion Matrix:\n{cm_svm}")
 
 
 print("\nFor K-Nearest Neighbors \n --------------------------------")
-for i, accuracy in enumerate(acc_knn, 1):
-    print(f"Accuracy for Fold {i}: {accuracy*100:.2f}%")
+# for i, accuracy in enumerate(acc_knn, 1):
+#     print(f"Accuracy for Fold {i}: {accuracy*100:.2f}%")
 overall_accuracy = np.trace(cm_knn) / np.sum(cm_knn)
 print(f"\nOverall Accuracy: {overall_accuracy*100:.2f}%")
 print(f"\nAggregate Confusion Matrix:\n{cm_knn}")
 
 
 print("\nFor Multi-Layer Perceptron \n --------------------------------")
-for i, accuracy in enumerate(acc_mlp, 1):
-    print(f"Accuracy for Fold {i}: {accuracy*100:.2f}%")
+# for i, accuracy in enumerate(acc_mlp, 1):
+#     print(f"Accuracy for Fold {i}: {accuracy*100:.2f}%")
 overall_accuracy = np.trace(cm_mlp) / np.sum(cm_mlp)
 print(f"\nOverall Accuracy: {overall_accuracy*100:.2f}%")
 print(f"\nAggregate Confusion Matrix:\n{cm_mlp}")
@@ -168,7 +172,7 @@ X = A[:len(A)//10, :9]
 y = A[:len(A)//10, 9:]
 y=y.ravel()
 
-print("For final board state classification with 10% of data")
+print("\nFor final board state classification with 10% of data")
 print("-----------------------------------------------------")
 
 acc_svm = []
@@ -205,24 +209,24 @@ for train_index, test_index in cv.split(X, y):
     acc_mlp.append(accuracy_score(y_test, y_pred_mlp))
 
 print("\nFor Support Vector Machine \n --------------------------------")
-for i, accuracy in enumerate(acc_svm, 1):
-    print(f"Accuracy for Fold {i}: {accuracy*100:.2f}%")
+# for i, accuracy in enumerate(acc_svm, 1):
+#     print(f"Accuracy for Fold {i}: {accuracy*100:.2f}%")
 overall_accuracy = np.trace(cm_svm) / np.sum(cm_svm)
 print(f"\nOverall Accuracy: {overall_accuracy*100:.2f}%")
 print(f"\nAggregate Confusion Matrix:\n{cm_svm}")
 
 
 print("\nFor K-Nearest Neighbors \n --------------------------------")
-for i, accuracy in enumerate(acc_knn, 1):
-    print(f"Accuracy for Fold {i}: {accuracy*100:.2f}%")
+# for i, accuracy in enumerate(acc_knn, 1):
+#     print(f"Accuracy for Fold {i}: {accuracy*100:.2f}%")
 overall_accuracy = np.trace(cm_knn) / np.sum(cm_knn)
 print(f"\nOverall Accuracy: {overall_accuracy*100:.2f}%")
 print(f"\nAggregate Confusion Matrix:\n{cm_knn}")
 
 
 print("\nFor Multi-Layer Perceptron \n --------------------------------")
-for i, accuracy in enumerate(acc_mlp, 1):
-    print(f"Accuracy for Fold {i}: {accuracy*100:.2f}%")
+# for i, accuracy in enumerate(acc_mlp, 1):
+#     print(f"Accuracy for Fold {i}: {accuracy*100:.2f}%")
 overall_accuracy = np.trace(cm_mlp) / np.sum(cm_mlp)
 print(f"\nOverall Accuracy: {overall_accuracy*100:.2f}%")
 print(f"\nAggregate Confusion Matrix:\n{cm_mlp}")
@@ -233,15 +237,16 @@ print(f"\nAggregate Confusion Matrix:\n{cm_mlp}")
 #                      Intermediate Board                               #
 #-----------------------------------------------------------------------#
 
-print("For intermediate board optimal move classification with 10% data")
+print("\nFor intermediate board optimal move classification with 10% data")
 print("----------------------------------------------------------------")
 
 file_path = join(current_dir, "datasets/tictac_single.txt")
 
 A = np.loadtxt(file_path)
 np.random.shuffle(A)
-X = A[:, :9]
-y = A[:, 9:]
+
+X = A[:len(A)//10, :9]
+y = A[:len(A)//10, 9:]
 y=y.ravel()
 
 acc_svm = []
@@ -278,24 +283,24 @@ for train_index, test_index in cv.split(X, y):
     acc_mlp.append(accuracy_score(y_test, y_pred_mlp))
 
 print("\nFor Support Vector Machine \n --------------------------------")
-for i, accuracy in enumerate(acc_svm, 1):
-    print(f"Accuracy for Fold {i}: {accuracy*100:.2f}%")
+# for i, accuracy in enumerate(acc_svm, 1):
+#     print(f"Accuracy for Fold {i}: {accuracy*100:.2f}%")
 overall_accuracy = np.trace(cm_svm) / np.sum(cm_svm)
 print(f"\nOverall Accuracy: {overall_accuracy*100:.2f}%")
 print(f"\nAggregate Confusion Matrix:\n{cm_svm}")
 
 
 print("\nFor K-Nearest Neighbors \n --------------------------------")
-for i, accuracy in enumerate(acc_knn, 1):
-    print(f"Accuracy for Fold {i}: {accuracy*100:.2f}%")
+# for i, accuracy in enumerate(acc_knn, 1):
+#     print(f"Accuracy for Fold {i}: {accuracy*100:.2f}%")
 overall_accuracy = np.trace(cm_knn) / np.sum(cm_knn)
 print(f"\nOverall Accuracy: {overall_accuracy*100:.2f}%")
 print(f"\nAggregate Confusion Matrix:\n{cm_knn}")
 
 
 print("\nFor Multi-Layer Perceptron \n --------------------------------")
-for i, accuracy in enumerate(acc_mlp, 1):
-    print(f"Accuracy for Fold {i}: {accuracy*100:.2f}%")
+# for i, accuracy in enumerate(acc_mlp, 1):
+#     print(f"Accuracy for Fold {i}: {accuracy*100:.2f}%")
 overall_accuracy = np.trace(cm_mlp) / np.sum(cm_mlp)
 print(f"\nOverall Accuracy: {overall_accuracy*100:.2f}%")
 print(f"\nAggregate Confusion Matrix:\n{cm_mlp}")

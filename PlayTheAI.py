@@ -1,8 +1,11 @@
 import numpy as np
 import os
+import warnings
 from os.path import dirname, join
 from sklearn.neural_network import MLPClassifier
+from sklearn.exceptions import ConvergenceWarning
 
+warnings.filterwarnings('ignore', category=ConvergenceWarning, module='sklearn.neural_network')
 current_dir = dirname(__file__)
 file_path = join(current_dir, "datasets/tictac_single.txt")
 
@@ -11,7 +14,7 @@ np.random.shuffle(A)
 X = A[:, :9]
 y = A[:, 9:]
 y=y.ravel()
-mlp = MLPClassifier(random_state=42, max_iter=1000)
+mlp = MLPClassifier(random_state=42, max_iter=100)
 mlp.fit(X, y)
 
 def print_board(board):
@@ -74,7 +77,6 @@ def play_game():
     
     while True:
         print_board(board)
-        print(board)
         
         if current_player == "X":
             row, col = get_player_move(board)
