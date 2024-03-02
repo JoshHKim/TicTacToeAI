@@ -101,18 +101,12 @@ def predict(X, theta):
     res = np.dot(x, theta)
     return np.ravel(res)
 
-def calcRSquared(y, y_pred):
+def rmse(y, y_pred):
     diff = y_pred - y
     squared_diff = diff ** 2
     mse = np.mean(squared_diff)
     rmse = np.sqrt(mse)
     return rmse
-    ss_res = np.sum((y - y_pred) ** 2)
-    y_mean = np.mean(y)
-    ss_tot = np.sum((y - y_mean) ** 2)
-    r_squared = 1 - (ss_res / ss_tot)
-    
-    return r_squared
 
 
 def crossVal(X, y):
@@ -120,7 +114,7 @@ def crossVal(X, y):
         X_train, X_test = X[train_index], X[test_index]
         y_train, y_test = y[train_index], y[test_index]
         thetas = []
-        r_squareds = []
+        rmses = []
         for i in range(9):
             y_single = y_train[:, i:i+1]
             thetas.append(fit(X_train, y_single))
@@ -128,9 +122,9 @@ def crossVal(X, y):
             y_pred = []
             for j in range(len(X_test)):
                 y_pred.append(predict(X_test[j:j+1, :], thetas[i]))
-            r_squareds.append(calcRSquared(y_test[:, i:i+1], y_pred))
+            rmses.append(rmse(y_test[:, i:i+1], y_pred))
 
-    return np.asarray(r_squareds)
+    return np.asarray(rmses)
 
 np.set_printoptions(precision=3)
 lnr_scores = crossVal(X,y)

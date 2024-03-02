@@ -90,7 +90,7 @@ print(f"\nAggregate Confusion Matrix:\n{cm_mlp}")
 
 
 #-----------------------------------------------------------------------#
-#                   For the final board                                 #
+#                  For the intermediate board                           #
 #-----------------------------------------------------------------------#
 print("\nFor intermediate board optimal move classification")
 print("--------------------------------------------------")
